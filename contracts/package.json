@@ -1,0 +1,22 @@
+{
+  "name": "stellar-contracts",
+  "version": "1.0.0",
+  "description": "Soroban smart contracts for Stellar NFT Marketplace",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/deploy.js",
+    "build:nft": "cd nft && cargo build --target wasm32-unknown-unknown --release",
+    "build:auction": "cd auction && cargo build --target wasm32-unknown-unknown --release",
+    "test": "cd nft && cargo test && cd ../auction && cargo test",
+    "deploy:testnet": "node scripts/deploy.js testnet",
+    "deploy:sdk": "node scripts/deploy-sdk.js",
+    "test:minting": "node scripts/test-minting.js",
+    "deploy:guide": "cat scripts/deploy-to-testnet.sh"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.2"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

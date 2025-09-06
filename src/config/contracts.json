@@ -1,0 +1,15 @@
+{
+  "network": "testnet",
+  "contracts": {
+    "nft": {
+      "contractId": "CMF8IW4PCo3ew5",
+      "wasmHash": "simulated-hash-nft",
+      "deployedAt": "2025-09-06T17:13:26.737Z"
+    },
+    "auction": {
+      "contractId": "CMF8IW4PDuv5hj",
+      "wasmHash": "simulated-hash-auction",
+      "deployedAt": "2025-09-06T17:13:26.738Z"
+    }
+  }
+}
