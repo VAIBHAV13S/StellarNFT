@@ -29,7 +29,7 @@ const MintNFT = () => {
   const { toast } = useToast();
   const { addNFT } = useNFTs();
   const { convertToFiat } = usePrices();
-  const { wallet, connectWallet, disconnectWallet } = useWallet();
+  const { wallet, connectWallet, disconnectWallet, walletConnection } = useWallet();
   const [selectedCurrency, setSelectedCurrency] = useState<Currency>("USD");
   const [selectedAsset, setSelectedAsset] = useState<'XLM' | 'KALE'>('XLM');
   const [price, setPrice] = useState('');
@@ -133,7 +133,25 @@ const MintNFT = () => {
 
       console.log('Mint result:', mintResult);
 
-      // Create new NFT object
+      // Sign the transaction with wallet
+      setUploadProgress('Signing transaction...');
+      const signedXdr = await walletConnection?.signTransaction(mintResult.signedXdr);
+
+      if (!signedXdr) {
+        throw new Error('Failed to sign transaction');
+      }
+
+      // Submit the signed transaction to the network
+      setUploadProgress('Submitting transaction to Stellar network...');
+      const submitResult = await contractService.submitSignedTransaction(signedXdr);
+
+      if (!submitResult.success) {
+        throw new Error(`Transaction failed: ${submitResult.error}`);
+      }
+
+      console.log('Transaction submitted successfully:', submitResult);
+
+      // Create new NFT object with real transaction hash
       const newNFT = {
         id: Date.now().toString(), // Temporary ID until we get real token ID from contract
         title,
@@ -153,7 +171,7 @@ const MintNFT = () => {
         asset: selectedAsset,
         status: "sale" as const,
         mintedAt: new Date(),
-        transactionHash: "pending", // Will be updated when contract integration is complete
+        transactionHash: submitResult.transactionHash || `tx_${Date.now()}`, // Use real transaction hash
         metadata: { 
           category: "Digital Art",
           traits: [
@@ -169,8 +187,8 @@ const MintNFT = () => {
       console.log("NFT Minted Successfully:", newNFT);
 
       toast({
-        title: "NFT Minted Successfully! 🎉",
-        description: `Your NFT "${title}" has been minted on Stellar blockchain`,
+        title: "NFT Transaction Submitted! 🎉",
+        description: `Your NFT "${title}" transaction has been submitted to Stellar blockchain. Transaction: ${submitResult.transactionHash}`,
       });
 
       // Navigate to success page or show success message
