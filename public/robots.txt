@@ -1,3 +1,10 @@
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://stellar-qd4j7ywud-vaibhav13s-projects.vercel.app/sitemap.xml
+
+# Optimize crawling
 User-agent: Googlebot
 Allow: /
 
@@ -10,5 +17,9 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
-User-agent: *
-Allow: /
+# Block common bot patterns
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /

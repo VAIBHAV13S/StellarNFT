@@ -1,17 +1,31 @@
-# 🌌 Stellar NFT Marketplace 🚀
+# � Stellar NFT Marketplace
 
-A decentralized NFT marketplace built on the Stellar network, featuring multi-asset support with XLM and #### 📌 **Pinata** (Good Alternative)
-- **Free Tier**: 1GB storage + 10GB bandwidth per month
-- **Setup**:
-  1. Visit [pinata.cloud](https://pinata.cloud/)
-  2. Create a free account
-  3. Go to API Keys section
-  4. Generate a new API Key with JWT
-  5. Add to `.env`: `VITE_PINATA_JWT=your_jwt_token_here`, real-time fiat pricing via Reflector oracle, and a cosmic-themed user experience.
+> **The premier decentralized NFT marketplace on Stellar blockchain**
+
+A modern, professional NFT marketplace built on the Stellar network, featuring multi-asset support with XLM and KALE, real-time fiat pricing via Reflector oracle, and a beautiful cosmic-themed user experience.
+
+## 🚀 Live Demo
+
+**🌐 Production Site**: [https://stellar-qd4j7ywud-vaibhav13s-projects.vercel.app](https://stellar-qd4j7ywud-vaibhav13s-projects.vercel.app)
+
+Experience the full marketplace with:
+- Complete NFT browsing and filtering
+- Demo wallet integration
+- Sample NFT collections
+- Interactive auction system
+- KALE farming simulation
+
+## 🎨 Brand Identity
+
+Our project features a custom-designed logo representing the cosmic nature of digital art and the stellar blockchain:
+- **Primary Logo**: Stellar constellation design with geometric elements
+- **Favicon**: Multi-size favicon set (16x16 to 512x512)
+- **Theme Colors**: Deep space blues with stellar accents
+- **Typography**: Modern, clean sans-serif fonts
 
 ## ✨ Features
 
-### Core Functionality
+### 🎯 Core Functionality
 - **Multi-Asset Trading**: Buy and sell NFTs using both XLM and KALE tokens
 - **Auction System**: Time-based auctions with live bidding
 - **NFT Minting**: Create and mint NFTs with custom metadata and royalties
@@ -19,7 +33,15 @@ A decentralized NFT marketplace built on the Stellar network, featuring multi-as
 - **Wallet Integration**: Support for Freighter, xBull, and Albedo wallets
 - **Demo Mode**: Full functionality without blockchain connection
 
-### KALE Integration
+### 🎨 Modern UI/UX
+- **Professional Design**: Clean, modern interface with glassmorphism effects
+- **Advanced Search**: Real-time search with category and price filters
+- **Responsive Layout**: Mobile-first design that works on all devices
+- **Loading States**: Beautiful skeleton loaders and smooth animations
+- **Grid/List Views**: Multiple viewing options for the marketplace
+- **Accessibility**: Full keyboard navigation and screen reader support
+
+### 🥬 KALE Integration
 - **Proof-of-Teamwork**: KALE farming with fair reward distribution
 - **Community Mining**: Web-based and GPU-enabled miners
 - **Team Collaboration**: Work together to harvest rewards

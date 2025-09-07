@@ -1,7 +1,16 @@
 {
-  "name": "vite_react_shadcn_ts",
+  "name": "stellar-nft-marketplace",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "The premier NFT marketplace on Stellar blockchain with modern UI/UX",
+  "homepage": "https://stellar-qd4j7ywud-vaibhav13s-projects.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VAIBHAV13S/StellarNFT.git"
+  },
+  "keywords": ["stellar", "nft", "marketplace", "blockchain", "cryptocurrency", "digital-art"],
+  "author": "VAIBHAV13S",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite",
