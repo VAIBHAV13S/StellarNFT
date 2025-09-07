@@ -158,354 +158,213 @@ const Index = () => {
   }, [allNFTs]);
 
   return (
-    <div className="min-h-screen bg-gradient-subtle">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background/95 to-primary/5">
       <Header 
         selectedCurrency={selectedCurrency}
         onCurrencyChange={setSelectedCurrency}
         onSearch={handleSearch}
       />
 
-      {/* Enhanced Hero Section with Search */}
-      <section className="relative overflow-hidden min-h-screen flex items-center">
-        {/* Enhanced Cosmic Background */}
-        <div className="absolute inset-0 bg-gradient-cosmic opacity-50" />
+      {/* Modern Hero Section */}
+      <section className="relative min-h-screen flex items-center overflow-hidden">
+        {/* Enhanced Background Elements */}
         <div className="absolute inset-0">
-          {/* Primary cosmic orbs with professional colors */}
-          <div className="absolute top-1/4 left-1/4 w-[28rem] h-[28rem] bg-primary/25 rounded-full blur-3xl animate-float shadow-stellar" />
-          <div className="absolute bottom-1/4 right-1/4 w-[32rem] h-[32rem] bg-accent/20 rounded-full blur-3xl animate-float shadow-glow" style={{ animationDelay: '1s' }} />
-
-          {/* Secondary floating elements with muted colors */}
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-gradient-to-r from-primary/15 to-accent/15 rounded-full blur-2xl animate-float opacity-20" />
-          <div className="absolute top-1/6 right-1/3 w-64 h-64 bg-secondary/25 rounded-full blur-xl animate-float" style={{ animationDelay: '2s' }} />
-
-          {/* Additional cosmic particles with professional colors */}
-          <div className="absolute top-1/3 right-1/6 w-32 h-32 bg-primary/20 rounded-full blur-xl animate-float" style={{ animationDelay: '3s' }} />
-          <div className="absolute bottom-1/3 left-1/6 w-40 h-40 bg-accent/15 rounded-full blur-2xl animate-float" style={{ animationDelay: '4s' }} />
-
-          {/* Professional star field */}
-          <div className="absolute inset-0">
-            {Array.from({ length: 30 }).map((_, i) => (
-              <div
-                key={i}
-                className="absolute w-1 h-1 bg-white/60 rounded-full animate-pulse"
-                style={{
-                  top: `${Math.random() * 100}%`,
-                  left: `${Math.random() * 100}%`,
-                  animationDelay: `${Math.random() * 3}s`,
-                  animationDuration: `${3 + Math.random() * 2}s`
-                }}
-              />
-            ))}
-          </div>
+          <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-float" />
+          <div className="absolute bottom-1/4 left-1/3 w-80 h-80 bg-accent/8 rounded-full blur-2xl animate-float" style={{ animationDelay: '2s' }} />
+          <div className="absolute top-3/4 right-1/2 w-64 h-64 bg-primary/5 rounded-full blur-xl" />
         </div>
 
-        {/* Professional overlay with subtle gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/15 via-transparent to-black/25" />
-
-        {/* Interactive mouse follower with enhanced effects */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute w-96 h-96 bg-primary/5 rounded-full blur-3xl opacity-0 hover:opacity-100 transition-opacity duration-1000 animate-float"
-               style={{
-                 top: '50%',
-                 left: '50%',
-                 transform: 'translate(-50%, -50%)',
-                 animationDelay: '5s'
-               }} />
-          {/* Additional floating particles */}
-          <div className="absolute w-32 h-32 bg-accent/10 rounded-full blur-2xl animate-particle opacity-50"
-               style={{
-                 top: '20%',
-                 left: '80%',
-                 animationDelay: '2s'
-               }} />
-          <div className="absolute w-24 h-24 bg-success/10 rounded-full blur-xl animate-particle opacity-30"
-               style={{
-                 top: '80%',
-                 left: '20%',
-                 animationDelay: '4s'
-               }} />
-        </div>
-
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <div className="max-w-6xl mx-auto">
-            {/* Enhanced Badge with pulse effect */}
-            <div className="mb-12 animate-fade-in">
-              <Badge variant="secondary" className="mb-8 px-8 py-4 text-lg font-semibold bg-white/10 backdrop-blur-md border-white/30 text-white shadow-2xl hover:shadow-glow transition-all duration-300 group">
-                <Sparkles className="h-6 w-6 mr-4 animate-spin group-hover:animate-pulse" />
+        <div className="container mx-auto px-6 lg:px-8 relative z-10">
+          <div className="max-w-7xl mx-auto">
+            {/* Status Badge */}
+            <div className="flex justify-center mb-8 animate-fade-in">
+              <Badge className="px-6 py-2 text-sm font-medium bg-primary/10 border-primary/20 text-primary hover:bg-primary/15 transition-colors">
+                <div className="w-2 h-2 bg-green-400 rounded-full mr-3 animate-pulse" />
                 Live on Stellar Network
-                <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity animate-pulse-glow" />
               </Badge>
             </div>
 
-            {/* Enhanced Main Heading with Advanced Typography */}
-            <h1 className="text-7xl md:text-9xl lg:text-[12rem] font-black mb-12 leading-none tracking-tighter relative">
-              <span className="block bg-gradient-to-r from-white via-primary to-accent bg-clip-text text-transparent animate-fade-in drop-shadow-2xl animate-liquid">
-                Discover
-              </span>
-              <span className="relative block mt-6">
-                <span className="bg-gradient-rainbow bg-clip-text text-transparent drop-shadow-2xl animate-shimmer" style={{ animationDelay: '0.2s' }}>
+            {/* Hero Content */}
+            <div className="text-center space-y-8 animate-fade-in">
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight">
+                <span className="block text-foreground mb-4">
+                  Discover & Collect
+                </span>
+                <span className="block bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
                   Stellar NFTs
                 </span>
-                {/* Enhanced underline with multiple layers and animations */}
-                <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 w-4/5 h-4 bg-gradient-rainbow rounded-full animate-pulse-stellar blur-md animate-liquid" />
-                <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 w-3/4 h-2 bg-gradient-rainbow rounded-full animate-pulse-stellar animate-morph" />
-                <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-1/2 h-1 bg-gradient-to-r from-primary to-accent rounded-full animate-shimmer" />
-              </span>
-              
-              {/* Floating accent elements */}
-              <div className="absolute -top-4 -right-4 w-8 h-8 bg-primary/30 rounded-full animate-float animate-magnetic" />
-              <div className="absolute -bottom-8 -left-8 w-6 h-6 bg-accent/30 rounded-full animate-float animate-particle" style={{ animationDelay: '1s' }} />
-            </h1>
+              </h1>
 
-            {/* Enhanced Description with better spacing */}
-            <p className="text-2xl md:text-3xl text-white/95 mb-16 max-w-4xl mx-auto leading-relaxed animate-fade-in font-light tracking-wide" style={{ animationDelay: '0.4s' }}>
-              Explore the <span className="text-primary font-semibold">universe</span> of digital art on Stellar.
-              Buy, sell, and auction unique NFTs with <span className="text-accent font-semibold">real-time</span> fiat pricing and seamless wallet integration.
-            </p>
+              <p className="max-w-3xl mx-auto text-xl md:text-2xl text-muted-foreground leading-relaxed">
+                The premier marketplace for digital art on Stellar blockchain. 
+                Trade with confidence using real-time pricing and seamless wallet integration.
+              </p>
 
-            {/* Enhanced Search Bar */}
-            <div className="max-w-2xl mx-auto mb-12 animate-fade-in" style={{ animationDelay: '0.5s' }}>
-              <div className="relative group">
-                <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all duration-300" />
-                <div className="relative glass-card p-2 rounded-2xl border-2 border-white/20 group-hover:border-primary/50 transition-all duration-300">
-                  <div className="flex items-center space-x-4">
-                    <div className="flex-1 relative">
-                      <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/60 h-6 w-6" />
-                      <Input
-                        type="text"
-                        placeholder="Search NFTs, artists, collections..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        className="pl-12 pr-4 py-4 text-lg bg-transparent border-0 text-white placeholder-white/60 focus:ring-0 focus:outline-none"
-                      />
-                      {searchQuery && (
-                        <button
-                          onClick={() => setSearchQuery("")}
-                          className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white/60 hover:text-white transition-colors"
-                        >
-                          <X className="h-5 w-5" />
-                        </button>
-                      )}
+              {/* Hero Search */}
+              <div className="max-w-2xl mx-auto">
+                <div className="relative group">
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="relative bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-2 group-hover:border-primary/30 transition-colors">
+                    <div className="flex items-center gap-3">
+                      <div className="flex-1 relative">
+                        <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
+                        <Input
+                          type="text"
+                          placeholder="Search NFTs, artists, or collections..."
+                          value={searchQuery}
+                          onChange={(e) => setSearchQuery(e.target.value)}
+                          className="pl-12 pr-4 py-4 text-lg bg-transparent border-0 focus:ring-0"
+                        />
+                        {searchQuery && (
+                          <button
+                            onClick={() => setSearchQuery("")}
+                            className="absolute right-4 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                          >
+                            <X className="h-5 w-5" />
+                          </button>
+                        )}
+                      </div>
+                      <Button
+                        size="lg"
+                        className="px-6 font-semibold"
+                        onClick={() => document.getElementById('marketplace-section')?.scrollIntoView({ behavior: 'smooth' })}
+                      >
+                        <Search className="h-5 w-5 mr-2" />
+                        Explore
+                      </Button>
                     </div>
-                    <Button
-                      className="btn-gradient px-8 py-4 text-lg font-semibold group/btn"
-                      onClick={() => document.getElementById('marketplace-section')?.scrollIntoView({ behavior: 'smooth' })}
-                    >
-                      <Search className="h-5 w-5 mr-2 group-hover/btn:animate-pulse" />
-                      Search
-                    </Button>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* Enhanced CTA Buttons with Advanced Effects */}
-            <div className="flex flex-col sm:flex-row gap-8 justify-center animate-fade-in mb-20" style={{ animationDelay: '0.6s' }}>
-              <Button
-                className="btn-gradient text-2xl px-12 py-6 group shadow-2xl hover:shadow-glow transform hover:scale-110 transition-all duration-300 relative overflow-hidden animate-magnetic"
-                onClick={() => document.getElementById('marketplace-section')?.scrollIntoView({ behavior: 'smooth' })}
-              >
-                <div className="absolute inset-0 bg-gradient-rainbow animate-shimmer opacity-50" />
-                <Sparkles className="h-8 w-8 mr-4 group-hover:animate-spin transition-transform relative z-10" />
-                <span className="relative z-10 font-bold">Browse NFTs</span>
-                <div className="absolute inset-0 bg-gradient-primary rounded-lg opacity-0 group-hover:opacity-100 transition-opacity animate-pulse-glow" />
-                
-                {/* Magnetic field effect */}
-                <div className="absolute inset-0 border-2 border-primary/0 group-hover:border-primary/50 rounded-lg transition-all duration-300 animate-liquid" />
-              </Button>
-
-              <Button
-                variant="outline"
-                className="text-2xl px-12 py-6 border-3 border-white/40 hover:border-accent/80 text-white hover:bg-accent/10 backdrop-blur-md group shadow-2xl hover:shadow-glow transform hover:scale-110 transition-all duration-300 relative overflow-hidden animate-magnetic"
-                onClick={() => navigate('/mint')}
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-accent/10 to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity animate-liquid" />
-                <Zap className="h-8 w-8 mr-4 group-hover:animate-bounce transition-transform relative z-10" />
-                <span className="relative z-10 font-bold">Create NFT</span>
-                
-                {/* Pulsing indicator */}
-                <div className="absolute -top-1 -right-1 w-4 h-4 bg-accent rounded-full animate-pulse-glow" />
-              </Button>
-
-              {!wallet.connected && (
+              {/* Hero Actions */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <Button
-                  variant="secondary"
-                  className="text-2xl px-12 py-6 group shadow-2xl hover:shadow-glow transform hover:scale-110 transition-all duration-300 bg-white/10 backdrop-blur-md border-2 border-white/30 hover:bg-white/20 relative overflow-hidden animate-magnetic"
-                  onClick={() => (document.querySelector('[data-wallet-trigger]') as HTMLElement)?.click()}
+                  size="lg"
+                  className="px-8 py-6 text-lg font-semibold min-w-[200px] bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 transition-all duration-300"
+                  onClick={() => document.getElementById('marketplace-section')?.scrollIntoView({ behavior: 'smooth' })}
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity animate-liquid" />
-                  <Wallet className="h-8 w-8 mr-4 group-hover:animate-pulse transition-transform relative z-10" />
-                  <span className="relative z-10 font-bold">Connect Wallet</span>
-                  
-                  {/* Connection indicator */}
-                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full animate-pulse" />
+                  <Sparkles className="h-6 w-6 mr-3" />
+                  Browse Marketplace
                 </Button>
-              )}
-            </div>
 
-            {/* Enhanced Stats Preview with glassmorphism */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto animate-fade-in" style={{ animationDelay: '0.8s' }}>
-              <div className="glass-card p-8 text-center group hover:scale-110 transition-all duration-300 hover:shadow-stellar cursor-pointer">
-                <div className="text-5xl font-black bg-gradient-to-r from-white to-primary bg-clip-text text-transparent mb-3 group-hover:animate-glow">
-                  {stats.totalNFTs.toLocaleString()}
-                </div>
-                <div className="text-white/90 text-sm uppercase tracking-widest font-semibold">Total NFTs</div>
-                <div className="mt-4 w-16 h-1 bg-gradient-primary rounded-full mx-auto opacity-80 group-hover:opacity-100 transition-opacity" />
-              </div>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="px-8 py-6 text-lg font-semibold min-w-[200px] border-2 hover:bg-accent/5 hover:border-accent transition-all duration-300"
+                  onClick={() => navigate('/mint')}
+                >
+                  <Zap className="h-6 w-6 mr-3" />
+                  Create NFT
+                </Button>
 
-              <div className="glass-card p-8 text-center group hover:scale-110 transition-all duration-300 hover:shadow-glow cursor-pointer">
-                <div className="text-5xl font-black bg-gradient-to-r from-white to-accent bg-clip-text text-transparent mb-3 group-hover:animate-glow">
-                  {stats.totalVolume.toFixed(0)} XLM
-                </div>
-                <div className="text-white/90 text-sm uppercase tracking-widest font-semibold">Total Volume</div>
-                <div className="mt-4 w-16 h-1 bg-gradient-cosmic rounded-full mx-auto opacity-80 group-hover:opacity-100 transition-opacity" />
-              </div>
-
-              <div className="glass-card p-8 text-center group hover:scale-110 transition-all duration-300 hover:shadow-stellar cursor-pointer">
-                <div className="text-5xl font-black bg-gradient-to-r from-white to-success bg-clip-text text-transparent mb-3 group-hover:animate-glow">
-                  {stats.activeAuctions}
-                </div>
-                <div className="text-white/90 text-sm uppercase tracking-widest font-semibold">Live Auctions</div>
-                <div className="mt-4 w-16 h-1 bg-gradient-neon rounded-full mx-auto opacity-80 group-hover:opacity-100 transition-opacity" />
-              </div>
-
-              <div className="glass-card p-8 text-center group hover:scale-110 transition-all duration-300 hover:shadow-glow cursor-pointer">
-                <div className="text-5xl font-black bg-gradient-to-r from-white to-warning bg-clip-text text-transparent mb-3 group-hover:animate-glow">
-                  {stats.uniqueArtists}
-                </div>
-                <div className="text-white/90 text-sm uppercase tracking-widest font-semibold">Artists</div>
-                <div className="mt-4 w-16 h-1 bg-gradient-primary rounded-full mx-auto opacity-80 group-hover:opacity-100 transition-opacity" />
+                {!wallet.connected && (
+                  <Button
+                    variant="secondary"
+                    size="lg"
+                    className="px-8 py-6 text-lg font-semibold min-w-[200px] hover:bg-secondary/80 transition-all duration-300"
+                    onClick={() => (document.querySelector('[data-wallet-trigger]') as HTMLElement)?.click()}
+                  >
+                    <Wallet className="h-6 w-6 mr-3" />
+                    Connect Wallet
+                  </Button>
+                )}
               </div>
             </div>
 
-            {/* Additional Stats Row */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mt-8 animate-fade-in" style={{ animationDelay: '1s' }}>
-              <div className="glass-card p-6 text-center group hover:scale-105 transition-all duration-300">
-                <div className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-2">
-                  {stats.floorPrice.toFixed(1)} XLM
+            {/* Hero Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto mt-20 animate-fade-in">
+              {[
+                { label: 'Total NFTs', value: stats.totalNFTs.toLocaleString(), icon: '🎨' },
+                { label: 'Total Volume', value: `${stats.totalVolume.toFixed(0)} XLM`, icon: '💎' },
+                { label: 'Live Auctions', value: stats.activeAuctions.toString(), icon: '⚡' },
+                { label: 'Artists', value: stats.uniqueArtists.toString(), icon: '👨‍🎨' }
+              ].map((stat, index) => (
+                <div key={stat.label} className="bg-card/30 backdrop-blur-sm border border-border/50 rounded-xl p-6 text-center hover:bg-card/50 transition-colors group">
+                  <div className="text-2xl mb-2">{stat.icon}</div>
+                  <div className="text-3xl font-bold text-foreground mb-1 group-hover:text-primary transition-colors">
+                    {stat.value}
+                  </div>
+                  <div className="text-sm text-muted-foreground font-medium uppercase tracking-wide">
+                    {stat.label}
+                  </div>
                 </div>
-                <div className="text-white/70 text-xs uppercase tracking-wider">Floor Price</div>
-              </div>
-
-              <div className="glass-card p-6 text-center group hover:scale-105 transition-all duration-300">
-                <div className="text-2xl font-bold bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent mb-2">
-                  {stats.avgPrice.toFixed(1)} XLM
-                </div>
-                <div className="text-white/70 text-xs uppercase tracking-wider">Avg Price</div>
-              </div>
-
-              <div className="glass-card p-6 text-center group hover:scale-105 transition-all duration-300">
-                <div className="text-2xl font-bold bg-gradient-to-r from-success to-accent bg-clip-text text-transparent mb-2">
-                  {stats.totalLikes.toLocaleString()}
-                </div>
-                <div className="text-white/70 text-xs uppercase tracking-wider">Total Likes</div>
-              </div>
-
-              <div className="glass-card p-6 text-center group hover:scale-105 transition-all duration-300">
-                <div className="text-2xl font-bold bg-gradient-to-r from-warning to-success bg-clip-text text-transparent mb-2">
-                  {stats.totalViews.toLocaleString()}
-                </div>
-                <div className="text-white/70 text-xs uppercase tracking-wider">Total Views</div>
-              </div>
+              ))}
             </div>
 
-            {/* Scroll indicator */}
-            <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-              <div className="w-8 h-14 border-2 border-white/40 rounded-full flex justify-center">
-                <div className="w-1 h-3 bg-white/60 rounded-full mt-2 animate-pulse"></div>
+            {/* Scroll Indicator */}
+            <div className="flex justify-center mt-16">
+              <div className="animate-bounce">
+                <ChevronDown className="h-8 w-8 text-muted-foreground" />
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Enhanced Stats Section */}
-      <section className="py-16 border-b border-border/50">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="glass-card p-6 text-center group hover:scale-105 transition-spring animate-fade-in">
-              <div className="text-4xl font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent mb-2 group-hover:animate-glow">
-                {stats.totalNFTs.toLocaleString()}
-              </div>
-              <div className="text-sm text-muted-foreground font-medium">Total NFTs</div>
-              <div className="mt-2 w-12 h-1 bg-gradient-primary rounded-full mx-auto opacity-80 group-hover:opacity-100 transition-opacity" />
-            </div>
-            <div className="glass-card p-6 text-center group hover:scale-105 transition-spring animate-fade-in" style={{ animationDelay: '0.1s' }}>
-              <div className="text-4xl font-bold bg-gradient-to-r from-accent to-accent-glow bg-clip-text text-transparent mb-2 group-hover:animate-glow">
-                {stats.totalVolume.toFixed(0)} XLM
-              </div>
-              <div className="text-sm text-muted-foreground font-medium">Total Volume</div>
-              <div className="mt-2 w-12 h-1 bg-gradient-cosmic rounded-full mx-auto opacity-80 group-hover:opacity-100 transition-opacity" />
-            </div>
-            <div className="glass-card p-6 text-center group hover:scale-105 transition-spring animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              <div className="text-4xl font-bold bg-gradient-to-r from-success to-primary bg-clip-text text-transparent mb-2 group-hover:animate-glow">
-                {stats.activeAuctions}
-              </div>
-              <div className="text-sm text-muted-foreground font-medium">Live Auctions</div>
-              <div className="mt-2 w-12 h-1 bg-gradient-neon rounded-full mx-auto opacity-80 group-hover:opacity-100 transition-opacity" />
-            </div>
-            <div className="glass-card p-6 text-center group hover:scale-105 transition-spring animate-fade-in" style={{ animationDelay: '0.3s' }}>
-              <div className="text-4xl font-bold bg-gradient-to-r from-warning to-accent bg-clip-text text-transparent mb-2 group-hover:animate-glow">
-                {stats.uniqueArtists}
-              </div>
-              <div className="text-sm text-muted-foreground font-medium">Artists</div>
-              <div className="mt-2 w-12 h-1 bg-gradient-primary rounded-full mx-auto opacity-80 group-hover:opacity-100 transition-opacity" />
             </div>
           </div>
         </div>
       </section>
 
       {/* Enhanced Marketplace Section */}
-      <section id="marketplace-section" className="py-16">
-        <div className="container mx-auto px-4">
+      <section id="marketplace-section" className="py-24 bg-gradient-to-b from-background to-background/95">
+        <div className="container mx-auto px-6 lg:px-8">
+          {/* Section Header */}
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+              Explore <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Marketplace</span>
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Discover unique digital artworks and collectibles from talented creators worldwide
+            </p>
+          </div>
+
           {/* Enhanced Filters & Controls */}
           <div className="mb-12">
-            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 space-y-4 lg:space-y-0">
-              <div className="flex items-center space-x-4">
-                <h2 className="text-4xl font-bold bg-gradient-to-r from-primary via-accent to-primary-glow bg-clip-text text-transparent animate-shimmer">Marketplace</h2>
-                <Badge variant="secondary" className="text-sm bg-white/10 backdrop-blur-sm border-white/20 text-white">
-                  {filteredNFTs.length} items
-                </Badge>
+            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 mb-8">
+              <div className="flex items-center gap-4 flex-wrap">
+                <div className="flex items-center gap-3">
+                  <h3 className="text-2xl font-semibold text-foreground">Collections</h3>
+                  <Badge variant="secondary" className="text-sm px-3 py-1">
+                    {filteredNFTs.length} items
+                  </Badge>
+                </div>
                 {debouncedSearchQuery && (
-                  <Badge variant="outline" className="text-sm border-primary/50 text-primary">
-                    Search: "{debouncedSearchQuery}"
+                  <Badge variant="outline" className="text-sm border-primary/50 text-primary bg-primary/5">
+                    🔍 "{debouncedSearchQuery}"
                   </Badge>
                 )}
               </div>
               
-              <div className="flex items-center space-x-4">
-                {/* Advanced Filters Toggle */}
+              <div className="flex items-center gap-4 flex-wrap">
+                {/* Enhanced Filters Toggle */}
                 <Button
                   variant="outline"
                   onClick={() => setShowFilters(!showFilters)}
-                  className="glass-card border-white/20 hover:bg-white/10"
+                  className="border-border/50 hover:bg-accent/5 hover:border-accent/50 transition-colors"
                 >
                   <Filter className="h-4 w-4 mr-2" />
                   Filters
-                  <ChevronDown className={`h-4 w-4 ml-2 transition-transform ${showFilters ? 'rotate-180' : ''}`} />
+                  <ChevronDown className={`h-4 w-4 ml-2 transition-transform duration-200 ${showFilters ? 'rotate-180' : ''}`} />
                 </Button>
 
-                {/* Sort By */}
+                {/* Sort Options */}
                 <Select value={sortBy} onValueChange={(value: SortBy) => setSortBy(value)}>
-                  <SelectTrigger className="w-40 glass-card border-white/20">
-                    <SelectValue />
+                  <SelectTrigger className="w-48 border-border/50 hover:border-accent/50 transition-colors">
+                    <SelectValue placeholder="Sort by..." />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="newest">Newest</SelectItem>
-                    <SelectItem value="price">Price: High to Low</SelectItem>
-                    <SelectItem value="ending-soon">Ending Soon</SelectItem>
-                    <SelectItem value="most-liked">Most Liked</SelectItem>
-                    <SelectItem value="trending">Trending</SelectItem>
+                    <SelectItem value="newest">🆕 Newest First</SelectItem>
+                    <SelectItem value="price">💰 Price: High to Low</SelectItem>
+                    <SelectItem value="ending-soon">⏰ Ending Soon</SelectItem>
+                    <SelectItem value="most-liked">❤️ Most Liked</SelectItem>
+                    <SelectItem value="trending">🔥 Trending</SelectItem>
                   </SelectContent>
                 </Select>
 
-                {/* View Mode */}
-                <div className="flex border border-white/20 rounded-lg glass-card">
+                {/* View Mode Toggle */}
+                <div className="flex border border-border/50 rounded-lg overflow-hidden bg-card/50">
                   <Button
                     variant={viewMode === "grid" ? "default" : "ghost"}
                     size="sm"
                     onClick={() => setViewMode("grid")}
-                    className="rounded-r-none hover:bg-primary/20"
+                    className="rounded-none hover:bg-primary/10"
                   >
                     <Grid className="h-4 w-4" />
                   </Button>
@@ -513,7 +372,7 @@ const Index = () => {
                     variant={viewMode === "list" ? "default" : "ghost"}
                     size="sm"
                     onClick={() => setViewMode("list")}
-                    className="rounded-l-none hover:bg-primary/20"
+                    className="rounded-none hover:bg-primary/10"
                   >
                     <List className="h-4 w-4" />
                   </Button>
@@ -521,37 +380,37 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Advanced Filters Panel */}
+            {/* Enhanced Filters Panel */}
             {showFilters && (
-              <div className="glass-card p-6 mb-8 animate-fade-in">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl p-6 mb-8 animate-fade-in">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                   {/* Status Filter */}
-                  <div>
-                    <label className="block text-sm font-medium text-white/90 mb-3">Status</label>
+                  <div className="space-y-3">
+                    <label className="text-sm font-medium text-foreground">Availability</label>
                     <Select value={filterStatus} onValueChange={(value: FilterStatus) => setFilterStatus(value)}>
-                      <SelectTrigger className="glass-card border-white/20">
+                      <SelectTrigger className="border-border/50">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="all">All NFTs</SelectItem>
-                        <SelectItem value="sale">Buy Now</SelectItem>
-                        <SelectItem value="auction">Auctions</SelectItem>
+                        <SelectItem value="all">🌟 All Items</SelectItem>
+                        <SelectItem value="sale">🛒 Buy Now</SelectItem>
+                        <SelectItem value="auction">⚡ Live Auctions</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   {/* Category Filter */}
-                  <div>
-                    <label className="block text-sm font-medium text-white/90 mb-3">Categories</label>
+                  <div className="space-y-3">
+                    <label className="text-sm font-medium text-foreground">Categories</label>
                     <div className="flex flex-wrap gap-2">
                       {categories.map(category => (
                         <Badge
                           key={category}
                           variant={selectedCategories.includes(category) ? "default" : "outline"}
-                          className={`cursor-pointer transition-all ${
+                          className={`cursor-pointer transition-all hover:scale-105 ${
                             selectedCategories.includes(category)
-                              ? 'bg-primary text-white'
-                              : 'border-white/20 text-white/70 hover:border-primary/50'
+                              ? 'bg-primary text-primary-foreground shadow-lg'
+                              : 'border-border/50 hover:border-primary/50 hover:bg-primary/5'
                           }`}
                           onClick={() => {
                             setSelectedCategories(prev =>
@@ -568,18 +427,18 @@ const Index = () => {
                   </div>
 
                   {/* Price Range */}
-                  <div>
-                    <label className="block text-sm font-medium text-white/90 mb-3">
+                  <div className="space-y-3">
+                    <label className="text-sm font-medium text-foreground">
                       Price Range: {priceRange[0]} - {priceRange[1]} XLM
                     </label>
-                    <div className="space-y-2">
+                    <div className="space-y-3">
                       <input
                         type="range"
                         min="0"
                         max="10000"
                         value={priceRange[0]}
                         onChange={(e) => setPriceRange([Number(e.target.value), priceRange[1]])}
-                        className="w-full"
+                        className="w-full accent-primary"
                       />
                       <input
                         type="range"
@@ -587,7 +446,7 @@ const Index = () => {
                         max="10000"
                         value={priceRange[1]}
                         onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
-                        className="w-full"
+                        className="w-full accent-primary"
                       />
                     </div>
                   </div>
@@ -603,8 +462,9 @@ const Index = () => {
                       setPriceRange([0, 10000]);
                       setSearchQuery("");
                     }}
-                    className="glass-card border-white/20 hover:bg-white/10"
+                    className="border-border/50 hover:bg-destructive/5 hover:border-destructive/50 hover:text-destructive transition-colors"
                   >
+                    <X className="h-4 w-4 mr-2" />
                     Clear All Filters
                   </Button>
                 </div>
@@ -612,7 +472,7 @@ const Index = () => {
             )}
           </div>
 
-          {/* Enhanced Loading State with Advanced Skeleton */}
+          {/* Enhanced Loading State */}
           {isLoading ? (
             <div className={`grid gap-8 ${
               viewMode === "grid" 
@@ -620,66 +480,39 @@ const Index = () => {
                 : "grid-cols-1"
             }`}>
               {Array.from({ length: 8 }).map((_, i) => (
-                <div key={i} className="nft-card animate-pulse relative overflow-hidden">
-                  {/* Animated Background */}
-                  <div className="absolute inset-0 bg-gradient-mesh animate-shimmer opacity-50" />
-                  
-                  <div className="relative z-10">
-                    {/* Image Skeleton with Morphing Effect */}
-                    <div className="w-full h-64 rounded-t-xl bg-gradient-to-r from-primary/20 via-accent/20 to-primary/20 animate-morph relative overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer" />
+                <div key={i} className="bg-card/30 backdrop-blur-sm border border-border/50 rounded-xl overflow-hidden animate-pulse">
+                  <div className="h-64 bg-gradient-to-r from-primary/10 to-accent/10"></div>
+                  <div className="p-6 space-y-4">
+                    <div className="space-y-2">
+                      <div className="h-6 bg-muted/50 rounded"></div>
+                      <div className="flex items-center space-x-2">
+                        <div className="w-6 h-6 bg-muted/50 rounded-full"></div>
+                        <div className="h-4 bg-muted/50 rounded w-20"></div>
+                      </div>
                     </div>
-                    
-                    <div className="p-6 space-y-4">
-                      {/* Title Skeleton */}
-                      <div className="space-y-2">
-                        <div className="h-6 bg-gradient-to-r from-muted/50 to-muted/30 rounded animate-liquid" />
-                        <div className="flex items-center space-x-2">
-                          <div className="w-6 h-6 bg-gradient-rainbow rounded-full animate-spin" />
-                          <div className="h-4 bg-muted/50 rounded w-20 animate-pulse" />
-                        </div>
-                      </div>
-                      
-                      {/* Price Skeleton */}
-                      <div className="space-y-2">
-                        <div className="flex justify-between">
-                          <div className="h-4 bg-muted/50 rounded w-16 animate-pulse" />
-                          <div className="h-6 bg-gradient-to-r from-primary/30 to-accent/30 rounded w-20 animate-liquid" />
-                        </div>
-                        <div className="h-4 bg-muted/50 rounded w-24 animate-pulse" />
-                      </div>
-                      
-                      {/* Button Skeleton */}
-                      <div className="h-12 bg-gradient-to-r from-primary/30 via-accent/30 to-primary/30 rounded-lg animate-shimmer" />
-                      
-                      {/* Stats Skeleton */}
+                    <div className="space-y-2">
                       <div className="flex justify-between">
-                        <div className="flex space-x-3">
-                          <div className="h-3 bg-muted/50 rounded w-8 animate-pulse" />
-                          <div className="h-3 bg-muted/50 rounded w-8 animate-pulse" />
-                        </div>
-                        <div className="h-3 bg-muted/50 rounded w-12 animate-pulse" />
+                        <div className="h-4 bg-muted/50 rounded w-16"></div>
+                        <div className="h-6 bg-muted/50 rounded w-20"></div>
                       </div>
+                      <div className="h-4 bg-muted/50 rounded w-24"></div>
                     </div>
+                    <div className="h-12 bg-muted/50 rounded-lg"></div>
                   </div>
                 </div>
               ))}
             </div>
           ) : filteredNFTs.length === 0 ? (
-            /* Enhanced Empty State with Interactive Elements */
-            <div className="text-center py-20 relative">
-              {/* Animated Background */}
-              <div className="absolute inset-0 bg-gradient-mesh opacity-30 animate-shimmer" />
-              
-              <div className="max-w-md mx-auto relative z-10">
-                <div className="w-32 h-32 mx-auto mb-8 glass-card flex items-center justify-center group hover:scale-110 transition-spring animate-morph relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-rainbow animate-shimmer opacity-50" />
-                  <Sparkles className="h-16 w-16 text-primary animate-pulse-glow relative z-10" />
+            /* Enhanced Empty State */
+            <div className="text-center py-20">
+              <div className="max-w-md mx-auto">
+                <div className="w-32 h-32 mx-auto mb-8 bg-card/30 backdrop-blur-sm border border-border/50 rounded-xl flex items-center justify-center group hover:scale-105 transition-transform">
+                  <Sparkles className="h-16 w-16 text-primary" />
                 </div>
-                <h3 className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-4 animate-liquid">
+                <h3 className="text-2xl font-bold text-foreground mb-4">
                   {debouncedSearchQuery ? `No NFTs found for "${debouncedSearchQuery}"` : 'No NFTs found'}
                 </h3>
-                <p className="text-muted-foreground mb-8 text-lg animate-fade-in">
+                <p className="text-muted-foreground mb-8 text-lg">
                   {filterStatus === "all" 
                     ? "Be the first to mint an NFT on Stellar!" 
                     : `No ${filterStatus === "auction" ? "auctions" : "NFTs for sale"} found.`
@@ -687,13 +520,11 @@ const Index = () => {
                 </p>
                 <div className="flex gap-6 justify-center">
                   <Button 
-                    className="btn-gradient group animate-magnetic relative overflow-hidden"
+                    className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90"
                     onClick={() => navigate('/mint')}
                   >
-                    <div className="absolute inset-0 bg-gradient-rainbow animate-shimmer opacity-50" />
-                    <Sparkles className="h-5 w-5 mr-3 group-hover:animate-spin transition-transform relative z-10" />
-                    <span className="relative z-10">Create First NFT</span>
-                    <div className="absolute inset-0 bg-gradient-primary rounded-lg opacity-0 group-hover:opacity-100 transition-opacity animate-pulse-glow" />
+                    <Sparkles className="h-5 w-5 mr-3" />
+                    Create First NFT
                   </Button>
                   {(filterStatus !== "all" || selectedCategories.length > 0 || debouncedSearchQuery) && (
                     <Button 
@@ -703,21 +534,16 @@ const Index = () => {
                         setSelectedCategories([]);
                         setSearchQuery("");
                       }}
-                      className="glass-card border-white/20 hover:bg-white/10 animate-liquid"
+                      className="border-border/50 hover:bg-card/50"
                     >
                       Clear Filters
                     </Button>
                   )}
                 </div>
-                
-                {/* Interactive Hint */}
-                <div className="mt-8 text-sm text-muted-foreground animate-bounce-gentle">
-                  💡 Try adjusting your search or filters to discover more NFTs
-                </div>
               </div>
             </div>
           ) : (
-            /* Enhanced NFT Grid/List */
+            /* Enhanced NFT Grid */
             <div className={`grid gap-8 ${
               viewMode === "grid" 
                 ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" 
@@ -726,64 +552,31 @@ const Index = () => {
               {filteredNFTs.map((nft, index) => (
                 <div
                   key={nft.id}
-                  className="glass-card group hover:scale-105 transition-spring animate-fade-in relative"
+                  className="group relative"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  {/* Favorite Button */}
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      toggleFavorite(nft.id);
-                    }}
-                    className="absolute top-4 right-4 z-20 p-2 rounded-full bg-card/80 backdrop-blur-sm border border-border hover:bg-card transition-all duration-200 opacity-0 group-hover:opacity-100"
-                  >
-                    <Heart 
-                      className={`h-4 w-4 transition-colors ${
-                        favorites.has(nft.id) ? 'fill-red-500 text-red-500' : 'text-muted-foreground hover:text-red-500'
-                      }`} 
-                    />
-                  </button>
-
                   <NFTCard 
                     nft={nft}
                     onSelect={(selectedNft) => console.log("Selected NFT:", selectedNft)}
                   />
-
-                  {/* Quick Stats Overlay */}
-                  <div className="absolute bottom-4 left-4 right-4 flex justify-between items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="flex items-center space-x-4 text-xs text-white/80">
-                      <div className="flex items-center space-x-1">
-                        <Eye className="h-3 w-3" />
-                        <span>{nft.views || Math.floor(Math.random() * 1000)}</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <Heart className="h-3 w-3" />
-                        <span>{nft.likes || Math.floor(Math.random() * 100)}</span>
-                      </div>
-                    </div>
-                    <Badge variant="outline" className="text-xs bg-black/50 border-white/20">
-                      {nft.metadata?.category || 'Art'}
-                    </Badge>
-                  </div>
                 </div>
               ))}
             </div>
           )}
 
-          {/* Enhanced Load More */}
+          {/* Load More */}
           {!isLoading && filteredNFTs.length > 0 && filteredNFTs.length >= 12 && (
             <div className="text-center mt-16">
               <Button 
-                className="btn-primary group relative overflow-hidden"
+                size="lg"
+                className="px-8 py-4 text-lg font-semibold bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90"
                 onClick={() => {
                   // Implement load more functionality
                   console.log("Load more NFTs");
                 }}
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 opacity-0 group-hover:opacity-100 transition-opacity animate-shimmer" />
-                <TrendingUp className="h-5 w-5 mr-3 group-hover:animate-bounce transition-transform" />
-                <span className="relative z-10">Load More NFTs</span>
-                <div className="absolute inset-0 bg-gradient-primary rounded-lg opacity-0 group-hover:opacity-100 transition-opacity animate-pulse-glow" />
+                <TrendingUp className="h-5 w-5 mr-3" />
+                Load More NFTs
               </Button>
             </div>
           )}

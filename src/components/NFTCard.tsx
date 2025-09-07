@@ -41,194 +41,118 @@ export function NFTCard({ nft, onSelect }: NFTCardProps) {
 
   return (
     <Card
-      className="nft-card cursor-pointer group relative overflow-hidden border-0 hover:shadow-2xl transition-all duration-500"
+      className="nft-card cursor-pointer group relative overflow-hidden border-0 hover:shadow-2xl transition-all duration-300"
       onClick={() => navigate(`/nft/${nft.id}`)}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Enhanced Hover Overlay with Magnetic Effect */}
-      <div className={`absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 z-10 animate-liquid`} />
-      
-      {/* Interactive Background Particles */}
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        {Array.from({ length: 5 }).map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-2 h-2 bg-primary/30 rounded-full animate-particle"
-            style={{
-              top: `${20 + Math.random() * 60}%`,
-              left: `${20 + Math.random() * 60}%`,
-              animationDelay: `${i * 0.5}s`,
-              animationDuration: `${2 + Math.random() * 2}s`
-            }}
-          />
-        ))}
-      </div>
+      {/* Simple hover overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
       
       <div className="relative">
-        {/* Image Container with Loading State and 3D Effects */}
-        <div className="relative w-full h-64 overflow-hidden rounded-t-xl group-hover:animate-morph transition-all duration-700">
+        {/* Clean image container */}
+        <div className="relative w-full h-64 overflow-hidden rounded-t-xl">
           {!imageLoaded && (
-            <div className="absolute inset-0 bg-gradient-mesh animate-pulse rounded-t-xl" />
+            <div className="absolute inset-0 bg-gradient-to-r from-muted/50 to-muted/30 rounded-t-xl" />
           )}
           <img 
             src={nft.image} 
             alt={nft.title}
-            className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-1 ${
-              imageLoaded ? 'opacity-100' : 'opacity-0'
-            }`}
+            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
             loading="lazy"
             onLoad={() => setImageLoaded(true)}
           />
-          
-          {/* Enhanced Image Overlay Effects with Rainbow Gradient */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          <div className="absolute inset-0 bg-gradient-rainbow opacity-0 group-hover:opacity-20 transition-opacity duration-500 animate-rainbow" />
-          
-          {/* Magnetic Field Effect */}
-          <div className="absolute inset-0 border-2 border-primary/0 group-hover:border-primary/50 rounded-t-xl transition-all duration-300 animate-magnetic" />
         </div>
         
-        {/* Enhanced Action Buttons Overlay with Magnetic Effect */}
-        <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 z-20 translate-y-2 group-hover:translate-y-0">
+        {/* Clean action buttons */}
+        <div className="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
           <button
             onClick={(e) => {
               e.stopPropagation();
               setIsLiked(!isLiked);
             }}
-            className="p-3 rounded-full bg-card/90 backdrop-blur-md border border-border/50 hover:bg-card hover:scale-110 transition-all duration-200 shadow-lg hover:shadow-glow animate-magnetic relative overflow-hidden group/btn"
+            className="p-3 rounded-full bg-card/90 backdrop-blur-md border border-border/50 hover:bg-card transition-all duration-200 shadow-lg"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-red-500/20 to-pink-500/20 opacity-0 group-hover/btn:opacity-100 transition-opacity" />
             <Heart 
-              className={`h-4 w-4 transition-all duration-200 relative z-10 ${
-                isLiked ? 'fill-red-500 text-red-500 scale-110 animate-pulse' : 'text-muted-foreground hover:text-red-500 hover:scale-105'
+              className={`h-4 w-4 transition-colors ${
+                isLiked ? 'fill-red-500 text-red-500' : 'text-muted-foreground hover:text-red-500'
               }`} 
             />
           </button>
           <button
             onClick={(e) => {
               e.stopPropagation();
-              // Enhanced quick view with modal could be implemented here
+              // Quick view functionality
               console.log('Quick view:', nft.title);
             }}
-            className="p-3 rounded-full bg-card/90 backdrop-blur-md border border-border/50 hover:bg-card hover:scale-110 transition-all duration-200 shadow-lg hover:shadow-glow animate-magnetic relative overflow-hidden group/btn"
+            className="p-3 rounded-full bg-card/90 backdrop-blur-md border border-border/50 hover:bg-card transition-all duration-200 shadow-lg"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 opacity-0 group-hover/btn:opacity-100 transition-opacity" />
-            <Eye className="h-4 w-4 text-muted-foreground hover:text-primary transition-colors relative z-10 group-hover/btn:animate-pulse" />
-          </button>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              // Share functionality
-              if (navigator.share) {
-                navigator.share({
-                  title: nft.title,
-                  text: `Check out this amazing NFT: ${nft.title}`,
-                  url: window.location.origin + `/nft/${nft.id}`
-                });
-              }
-            }}
-            className="p-3 rounded-full bg-card/90 backdrop-blur-md border border-border/50 hover:bg-card hover:scale-110 transition-all duration-200 shadow-lg hover:shadow-glow animate-magnetic relative overflow-hidden group/btn"
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-green-500/20 to-emerald-500/20 opacity-0 group-hover/btn:opacity-100 transition-opacity" />
-            <Award className="h-4 w-4 text-muted-foreground hover:text-green-500 transition-colors relative z-10 group-hover/btn:animate-bounce" />
+            <Eye className="h-4 w-4 text-muted-foreground hover:text-primary transition-colors" />
           </button>
         </div>
 
-        {/* Enhanced Status Badges with Live Updates */}
+        {/* Clean status badges */}
         <div className="absolute top-4 left-4 flex flex-col gap-2 z-20">
           {nft.status === 'auction' && (
-            <Badge variant="destructive" className="auction-timer shadow-lg bg-red-500/90 backdrop-blur-sm border-red-400/50 px-3 py-1 animate-pulse-glow relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-r from-red-500/20 to-pink-500/20 animate-shimmer" />
-              <Clock className="h-3 w-3 mr-1 animate-pulse relative z-10" />
-              <span className="relative z-10 font-mono">
+            <Badge variant="destructive" className="shadow-lg bg-red-500/90 backdrop-blur-sm border-red-400/50 px-3 py-1">
+              <Clock className="h-3 w-3 mr-1" />
+              <span className="font-mono">
                 {isAuction ? formatTimeLeft(nft.auction.endTime) : 'Live'}
               </span>
             </Badge>
           )}
           {nft.status === 'sale' && (
-            <Badge variant="secondary" className="shadow-lg bg-green-500/90 backdrop-blur-sm border-green-400/50 px-3 py-1 animate-liquid relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-r from-green-500/20 to-emerald-500/20 animate-shimmer" />
-              <Zap className="h-3 w-3 mr-1 animate-bounce relative z-10" />
-              <span className="relative z-10">Buy Now</span>
+            <Badge variant="secondary" className="shadow-lg bg-green-500/90 backdrop-blur-sm border-green-400/50 px-3 py-1">
+              <Zap className="h-3 w-3 mr-1" />
+              <span>Buy Now</span>
             </Badge>
           )}
-          
-          {/* Enhanced Price Trend Indicator with Real-time Updates */}
-          <Badge variant="outline" className="bg-card/90 backdrop-blur-sm border-border/50 text-xs px-2 py-1 shadow-lg animate-magnetic relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-green-500/10 to-blue-500/10 animate-shimmer" />
-            <TrendingUp className="h-3 w-3 mr-1 text-green-400 animate-pulse relative z-10" />
-            <span className="relative z-10 font-mono">+{Math.floor(Math.random() * 20 + 5)}%</span>
-          </Badge>
         </div>
 
-        {/* Enhanced Rarity Indicator */}
+        {/* Clean rarity indicator */}
         <div className="absolute bottom-4 left-4 z-20">
           <Badge variant="outline" className="bg-card/90 backdrop-blur-sm border-border/50 text-xs px-2 py-1 shadow-lg">
             <Star className="w-3 h-3 bg-yellow-500 rounded-full mr-1" />
             Rare
           </Badge>
         </div>
-
-        {/* Enhanced Auction Progress Bar with Real-time Updates */}
-        {isAuction && (
-          <div className="absolute bottom-0 left-0 right-0 h-2 bg-black/20 overflow-hidden">
-            <div 
-              className="h-full bg-gradient-rainbow animate-shimmer relative"
-              style={{ 
-                width: `${Math.min(100, (Date.now() - new Date(nft.auction.endTime).getTime() + 86400000) / 86400000 * 100)}%`,
-                animationDuration: '3s'
-              }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer" />
-            </div>
-            {/* Progress Indicator */}
-            <div className="absolute top-0 right-2 transform -translate-y-full">
-              <div className="bg-card/90 backdrop-blur-sm px-2 py-1 rounded text-xs text-muted-foreground animate-pulse">
-                {Math.floor(Math.random() * 30 + 70)}% Complete
-              </div>
-            </div>
-          </div>
-        )}
       </div>
 
       <div className="p-6 space-y-4 relative">
-        {/* Enhanced Title & Artist with Interactive Effects */}
+        {/* Clean title and artist */}
         <div className="space-y-2">
-          <h3 className="font-bold text-lg text-foreground truncate group-hover:text-primary transition-colors duration-300 leading-tight animate-liquid">
+          <h3 className="font-bold text-lg text-foreground truncate group-hover:text-primary transition-colors duration-300">
             {nft.title}
           </h3>
           <div className="flex items-center space-x-2">
-            <div className="w-6 h-6 bg-gradient-rainbow rounded-full flex items-center justify-center animate-morph hover:animate-spin transition-all duration-300 cursor-pointer">
-              <span className="text-white text-xs font-bold animate-pulse">
+            <div className="w-6 h-6 bg-gradient-to-r from-primary to-accent rounded-full flex items-center justify-center">
+              <span className="text-white text-xs font-bold">
                 {nft.artist.name.charAt(0).toUpperCase()}
               </span>
             </div>
-            <p className="text-sm hover:text-primary transition-colors cursor-pointer truncate group-hover:animate-shimmer bg-gradient-to-r from-muted-foreground to-primary bg-clip-text text-transparent">
-              by <span className="font-medium">{nft.artist.name}</span>
+            <p className="text-sm text-muted-foreground truncate">
+              by <span className="font-medium hover:text-primary transition-colors cursor-pointer">{nft.artist.name}</span>
             </p>
           </div>
         </div>
 
-        {/* Enhanced Price Section */}
+        {/* Clean price section */}
         <div className="space-y-3">
           <div className="flex justify-between items-center">
             <span className="text-muted-foreground text-sm font-medium">
               {isAuction ? 'Current bid' : 'Price'}
             </span>
-            <div className="price-shimmer">
-              <div className="text-right">
-                <div className="font-bold text-foreground text-lg leading-tight">
-                  {formatCurrency(currentPrice, nft.asset as 'XLM' | 'KALE')}
-                </div>
-                <div className="text-sm text-muted-foreground">
-                  ≈ {formatCurrency(priceInUSD, 'USD')}
-                </div>
+            <div className="text-right">
+              <div className="font-bold text-foreground text-lg">
+                {formatCurrency(currentPrice, nft.asset as 'XLM' | 'KALE')}
+              </div>
+              <div className="text-sm text-muted-foreground">
+                ≈ {formatCurrency(priceInUSD, 'USD')}
               </div>
             </div>
           </div>
 
-          {/* Enhanced Auction Info */}
+          {/* Clean auction info */}
           {isAuction && (
             <div className="flex justify-between text-sm text-muted-foreground">
               <span className="flex items-center">
@@ -243,39 +167,28 @@ export function NFTCard({ nft, onSelect }: NFTCardProps) {
           )}
         </div>
 
-        {/* Enhanced Action Button with Advanced Effects */}
+        {/* Clean action button */}
         <Button
-          className="w-full btn-gradient group/btn relative overflow-hidden shadow-neon hover:shadow-glow transition-all duration-300 h-12 animate-liquid"
+          className="w-full btn-gradient group relative overflow-hidden shadow-lg hover:shadow-glow transition-all duration-300 h-12"
           variant="default"
         >
-          <span className="relative z-10 flex items-center justify-center font-semibold">
+          <span className="flex items-center justify-center font-semibold">
             {isAuction ? (
               <>
-                <TrendingUp className="h-4 w-4 mr-2 group-hover/btn:animate-bounce transition-transform animate-magnetic" />
+                <TrendingUp className="h-4 w-4 mr-2" />
                 Place Bid
-                <div className="ml-2 px-2 py-1 bg-white/20 rounded-full text-xs animate-pulse">
-                  Live
-                </div>
               </>
             ) : (
               <>
-                <Heart className="h-4 w-4 mr-2 group-hover/btn:animate-pulse transition-transform animate-magnetic" />
+                <Heart className="h-4 w-4 mr-2" />
                 Buy Now
-                <div className="ml-2 px-2 py-1 bg-white/20 rounded-full text-xs animate-pulse">
-                  Instant
-                </div>
               </>
             )}
           </span>
-          <div className="absolute inset-0 bg-gradient-to-r from-accent/0 via-accent/30 to-accent/0 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700 animate-shimmer" />
-          <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300" />
-          
-          {/* Magnetic Field Effect */}
-          <div className="absolute inset-0 border border-primary/0 group-hover/btn:border-primary/30 rounded-lg transition-all duration-300 animate-magnetic" />
         </Button>
 
-        {/* Quick Stats */}
-        <div className="flex justify-between items-center text-xs text-muted-foreground opacity-60 group-hover:opacity-100 transition-opacity">
+        {/* Clean stats */}
+        <div className="flex justify-between items-center text-xs text-muted-foreground">
           <div className="flex items-center space-x-3">
             <span className="flex items-center">
               <Eye className="h-3 w-3 mr-1" />

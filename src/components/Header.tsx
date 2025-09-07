@@ -158,10 +158,10 @@ export function Header({
             </form>
 
             {/* Notifications */}
-            <Button variant="ghost" size="sm" className="relative hover:bg-white/10 animate-magnetic" onClick={() => setShowNotifications(!showNotifications)}>
+            <Button variant="ghost" size="sm" className="relative hover:bg-white/10" onClick={() => setShowNotifications(!showNotifications)}>
               <Bell className="h-4 w-4" />
               {unreadCount > 0 && (
-                <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center text-xs bg-red-500 animate-pulse-glow">
+                <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center text-xs bg-red-500">
                   {unreadCount}
                 </Badge>
               )}
@@ -283,10 +283,10 @@ export function Header({
               ) : (
                 <Button 
                   onClick={() => setShowWalletModal(true)}
-                  className="btn-stellar group"
+                  className="btn-stellar"
                   data-wallet-trigger
                 >
-                  <Wallet className="h-4 w-4 mr-2 group-hover:animate-bounce" />
+                  <Wallet className="h-4 w-4 mr-2" />
                   Connect Wallet
                 </Button>
               )}
