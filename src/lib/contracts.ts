@@ -130,8 +130,17 @@ export class ContractService {
     try {
       const contractId = this.getContractId('nft');
 
-      // Get account info for transaction building
-      const account = await this.server.getAccount(walletAddress);
+      // Get account info for transaction building - with better error handling
+      let account;
+      try {
+        account = await this.server.getAccount(walletAddress);
+      } catch (error) {
+        // Provide a more helpful error message for account issues
+        if (error instanceof Error && error.message.includes('404')) {
+          throw new Error(`Account ${walletAddress} not found on ${this.network}. Please ensure your account is funded on the ${this.network} network.`);
+        }
+        throw new Error(`Failed to load account information: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      }
 
       // Convert attributes to ScVal format
       const attributesScVal = xdr.ScVal.scvVec(

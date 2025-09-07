@@ -482,3 +482,88 @@ export function createWalletConnection(
 
 // Export default demo wallet instance for backward compatibility
 export const walletConnection = createWalletConnection('demo');
+
+// Helper function to fund testnet accounts
+export async function fundTestnetAccount(address: string): Promise<boolean> {
+  if (!address) return false;
+  
+  try {
+    console.log(`Funding testnet account: ${address}`);
+    
+    const response = await fetch(`https://friendbot.stellar.org?addr=${encodeURIComponent(address)}`);
+    
+    if (response.ok) {
+      console.log(`✅ Account ${address} funded successfully!`);
+      return true;
+    } else {
+      console.error(`❌ Failed to fund account: ${response.status} ${response.statusText}`);
+      return false;
+    }
+  } catch (error) {
+    console.error('❌ Error funding testnet account:', error);
+    return false;
+  }
+}
+
+// Helper function to check if account exists
+export async function checkAccountExists(address: string, network: WalletNetwork = WalletNetwork.TESTNET): Promise<boolean> {
+  if (!address) return false;
+  
+  try {
+    const horizonUrl = network === WalletNetwork.TESTNET 
+      ? 'https://horizon-testnet.stellar.org'
+      : 'https://horizon.stellar.org';
+      
+    const response = await fetch(`${horizonUrl}/accounts/${address}`);
+    return response.ok;
+  } catch (error) {
+    console.error('Error checking account existence:', error);
+    return false;
+  }
+}
+
+// Enhanced wallet connection helper that auto-funds testnet accounts
+export async function connectAndEnsureFunded(
+  walletConnection: WalletConnection,
+  autoFund: boolean = true
+): Promise<{ success: boolean; address: string | null; funded?: boolean }> {
+  try {
+    // First, connect the wallet
+    await walletConnection.connect();
+    
+    if (!walletConnection.isConnected || !walletConnection.address) {
+      return { success: false, address: null };
+    }
+    
+    const address = walletConnection.address;
+    
+    // Check if this is testnet and auto-funding is enabled
+    if (autoFund && walletConnection.network === WalletNetwork.TESTNET) {
+      console.log('🔍 Checking if testnet account exists...');
+      
+      const accountExists = await checkAccountExists(address, WalletNetwork.TESTNET);
+      
+      if (!accountExists) {
+        console.log('💰 Account not found on testnet, funding automatically...');
+        const funded = await fundTestnetAccount(address);
+        
+        if (funded) {
+          console.log('✅ Testnet account funded successfully!');
+          // Wait a moment for the account to be available
+          await new Promise(resolve => setTimeout(resolve, 2000));
+          return { success: true, address, funded: true };
+        } else {
+          console.warn('⚠️ Failed to fund testnet account automatically');
+          return { success: true, address, funded: false };
+        }
+      } else {
+        console.log('✅ Testnet account already exists');
+      }
+    }
+    
+    return { success: true, address };
+  } catch (error) {
+    console.error('Error in connectAndEnsureFunded:', error);
+    return { success: false, address: null };
+  }
+}
