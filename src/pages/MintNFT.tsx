@@ -29,7 +29,7 @@ const MintNFT = () => {
   const { toast } = useToast();
   const { addNFT } = useNFTs();
   const { convertToFiat } = usePrices();
-  const { wallet, connectWallet, disconnectWallet, walletConnection } = useWallet();
+  const { wallet, connectWallet, disconnectWallet, signTransaction } = useWallet();
   const [selectedCurrency, setSelectedCurrency] = useState<Currency>("USD");
   const [selectedAsset, setSelectedAsset] = useState<'XLM' | 'KALE'>('XLM');
   const [price, setPrice] = useState('');
@@ -133,17 +133,40 @@ const MintNFT = () => {
 
       console.log('Mint result:', mintResult);
 
+      // Check if wallet is still connected
+      if (!wallet.connected || !wallet.address) {
+        throw new Error('Wallet disconnected during minting process');
+      }
+
       // Sign the transaction with wallet
       setUploadProgress('Signing transaction...');
-      const signedXdr = await walletConnection?.signTransaction(mintResult.signedXdr);
+      console.log('About to sign transaction with XDR:', mintResult.signedXdr.substring(0, 100) + '...');
+      
+      let signedXdr;
+      try {
+        signedXdr = await signTransaction(mintResult.signedXdr);
+      } catch (signError) {
+        console.error('Transaction signing failed:', signError);
+        throw new Error(`Failed to sign transaction: ${signError instanceof Error ? signError.message : 'Unknown signing error'}`);
+      }
 
       if (!signedXdr) {
-        throw new Error('Failed to sign transaction');
+        throw new Error('Transaction signing returned empty result');
       }
+
+      console.log('Transaction signed successfully, signed XDR length:', signedXdr.length);
 
       // Submit the signed transaction to the network
       setUploadProgress('Submitting transaction to Stellar network...');
-      const submitResult = await contractService.submitSignedTransaction(signedXdr);
+      console.log('Submitting signed transaction to network...');
+      
+      let submitResult;
+      try {
+        submitResult = await contractService.submitSignedTransaction(signedXdr);
+      } catch (submitError) {
+        console.error('Transaction submission failed:', submitError);
+        throw new Error(`Failed to submit transaction: ${submitError instanceof Error ? submitError.message : 'Unknown submission error'}`);
+      }
 
       if (!submitResult.success) {
         throw new Error(`Transaction failed: ${submitResult.error}`);
