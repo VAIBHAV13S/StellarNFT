@@ -147,85 +147,170 @@ export class StellarWalletConnection implements WalletConnection {
           break;
           
         case WalletType.XBULL: {
-          // CORRECTED xBull signing implementation using official xBull API
           console.log('About to sign transaction with XDR:', xdr.substring(0, 100) + '...');
-          
-          try {
-            // Method 1: Use the official xBullWalletConnect library
-            console.log('Creating xBullWalletConnect bridge...');
-            const bridge = new xBullWalletConnect();
-            
-            const signedXDR = await bridge.sign({
-              xdr: xdr,
-              publicKey: this._address,
-              network: this._network === WalletNetwork.TESTNET ? 'TESTNET' : 'PUBLIC'
-            });
-            
-            console.log('xBullWalletConnect signing successful:', signedXDR);
-            
-            // Clean up the bridge connection
-            bridge.closeConnections();
-            
-            return signedXDR;
-          } catch (bridgeError) {
-            console.warn('xBullWalletConnect failed:', bridgeError);
-            
-            // Fallback: Try direct extension API
-            const globalWindow = window as unknown as Record<string, unknown>;
-            
-            // Try the extension API (window.xBullSDK)
-            if (globalWindow.xBullSDK) {
-              const xBullSDK = globalWindow.xBullSDK as Record<string, unknown>;
-              console.log('Fallback: Using xBullSDK directly');
-              
-              if (typeof xBullSDK.sign === 'function') {
-                try {
-                  const result = await (xBullSDK.sign as (params: {
+
+          // Method 1: Use xBullSDK (this is what you have available)
+          if (globalWindow.xBullSDK) {
+            const xBullSDK = globalWindow.xBullSDK as Record<string, unknown>;
+            console.log('Using xBullSDK for signing');
+            console.log('xBullSDK methods:', Object.keys(xBullSDK));
+
+            // Try the request method (common xBull SDK pattern)
+            if (typeof xBullSDK.request === 'function') {
+              try {
+                console.log('Attempting xBullSDK.request for signing...');
+                const result = await (xBullSDK.request as (params: {
+                  method: string;
+                  params: {
                     xdr: string;
                     publicKey?: string;
                     network?: string;
-                  }) => Promise<{ response: string }>)({
+                  };
+                }) => Promise<{ result: string }>)({
+                  method: 'signTransaction',
+                  params: {
                     xdr: xdr,
                     publicKey: this._address,
                     network: this._network === WalletNetwork.TESTNET ? 'TESTNET' : 'PUBLIC'
-                  });
-                  
-                  console.log('xBullSDK direct signing successful:', result);
-                  return result.response;
-                } catch (sdkError) {
-                  console.warn('xBullSDK direct signing failed:', sdkError);
-                }
+                  }
+                });
+
+                console.log('xBullSDK.request signing successful:', result);
+                return result.result;
+              } catch (requestError) {
+                console.warn('xBullSDK.request failed:', requestError);
               }
             }
-            
-            // Try simple extension API
-            const xBullExtension = globalWindow.xBull || globalWindow.xbull;
-            if (xBullExtension) {
-              const xBullObj = xBullExtension as Record<string, unknown>;
-              console.log('Fallback: Using xBull extension API');
-              
-              if (typeof xBullObj.sign === 'function') {
+
+            // Try the sign method
+            if (typeof xBullSDK.sign === 'function') {
+              try {
+                console.log('Attempting xBullSDK.sign...');
+                const result = await (xBullSDK.sign as (params: {
+                  xdr: string;
+                  publicKey?: string;
+                  network?: string;
+                }) => Promise<{ response: string } | string>)({
+                  xdr: xdr,
+                  publicKey: this._address,
+                  network: this._network === WalletNetwork.TESTNET ? 'TESTNET' : 'PUBLIC'
+                });
+
+                console.log('xBullSDK.sign successful:', result);
+                return typeof result === 'string' ? result : result.response;
+              } catch (signError) {
+                console.warn('xBullSDK.sign failed:', signError);
+              }
+            }
+
+            // Try signTransaction method
+            if (typeof xBullSDK.signTransaction === 'function') {
+              try {
+                console.log('Attempting xBullSDK.signTransaction...');
+                const result = await (xBullSDK.signTransaction as (params: {
+                  xdr: string;
+                  publicKey?: string;
+                  network?: string;
+                }) => Promise<{ signedTxXdr: string } | string>)({
+                  xdr: xdr,
+                  publicKey: this._address,
+                  network: this._network === WalletNetwork.TESTNET ? 'TESTNET' : 'PUBLIC'
+                });
+
+                console.log('xBullSDK.signTransaction successful:', result);
+                return typeof result === 'string' ? result : result.signedTxXdr;
+              } catch (txSignError) {
+                console.warn('xBullSDK.signTransaction failed:', txSignError);
+              }
+            }
+
+            // Try calling methods directly without params object
+            const directMethods = ['sign', 'signTransaction'];
+            for (const method of directMethods) {
+              if (typeof xBullSDK[method] === 'function') {
                 try {
-                  const result = await (xBullObj.sign as (params: {
-                    xdr: string;
-                    publicKey?: string;
-                    network?: string;
-                  }) => Promise<string | { signedTxXdr: string }>)({
-                    xdr: xdr,
-                    publicKey: this._address,
-                    network: this._network === WalletNetwork.TESTNET ? 'TESTNET' : 'PUBLIC'
-                  });
-                  
-                  console.log('xBull extension signing successful:', result);
-                  return typeof result === 'string' ? result : result.signedTxXdr;
-                } catch (extError) {
-                  console.warn('xBull extension signing failed:', extError);
+                  console.log(`Attempting xBullSDK.${method} direct call...`);
+                  const result = await (xBullSDK[method] as (xdr: string) => Promise<string | { signedTxXdr: string; response: string }>)(xdr);
+
+                  console.log(`xBullSDK.${method} direct successful:`, result);
+                  if (typeof result === 'string') {
+                    return result;
+                  } else if (result && typeof result === 'object') {
+                    return result.signedTxXdr || result.response || '';
+                  }
+                } catch (directError) {
+                  console.warn(`xBullSDK.${method} direct failed:`, directError);
                 }
               }
             }
-            
-            throw new Error(`xBull wallet signing failed. Bridge error: ${bridgeError instanceof Error ? bridgeError.message : 'Unknown'}. Available APIs: ${Object.keys(globalWindow).filter(key => key.toLowerCase().includes('xbull')).join(', ')}`);
+
+            console.log('Available xBullSDK methods:', Object.keys(xBullSDK));
+            console.log('xBullSDK object:', xBullSDK);
           }
+
+          // Method 2: Fallback to window.stellar.xBull if it exists
+          const stellar = globalWindow.stellar as Record<string, unknown>;
+          if (stellar?.xBull) {
+            const stellarXBull = stellar.xBull as Record<string, unknown>;
+            console.log('Fallback: Using window.stellar.xBull');
+
+            if (typeof stellarXBull.signTransaction === 'function') {
+              try {
+                const result = await (stellarXBull.signTransaction as (params: {
+                  xdr: string;
+                  publicKey: string;
+                  network: string;
+                }) => Promise<{ signedTxXdr: string }>)({
+                  xdr: xdr,
+                  publicKey: this._address,
+                  network: this._network === WalletNetwork.TESTNET ? 'TESTNET' : 'PUBLIC'
+                });
+
+                console.log('window.stellar.xBull signing successful:', result);
+                return result.signedTxXdr;
+              } catch (stellarError) {
+                console.warn('window.stellar.xBull signing failed:', stellarError);
+              }
+            }
+          }
+
+          // Method 3: Final fallback - try any xBull-related object
+          const xBullKeys = Object.keys(globalWindow).filter(key =>
+            key.toLowerCase().includes('xbull')
+          );
+
+          for (const key of xBullKeys) {
+            const xBullObj = globalWindow[key] as Record<string, unknown>;
+            if (xBullObj && typeof xBullObj === 'object') {
+              console.log(`Trying fallback method with ${key}:`, Object.keys(xBullObj));
+
+              const signMethods = ['sign', 'signTransaction', 'request'];
+              for (const method of signMethods) {
+                if (typeof xBullObj[method] === 'function') {
+                  try {
+                    console.log(`Attempting ${key}.${method}...`);
+                    const result = await (xBullObj[method] as (params: unknown) => Promise<unknown>)({
+                      xdr: xdr,
+                      publicKey: this._address,
+                      network: this._network === WalletNetwork.TESTNET ? 'TESTNET' : 'PUBLIC'
+                    });
+
+                    console.log(`${key}.${method} successful:`, result);
+                    if (typeof result === 'string') {
+                      return result;
+                    } else if (result && typeof result === 'object') {
+                      const resultObj = result as Record<string, unknown>;
+                      return (resultObj.signedTxXdr || resultObj.response || resultObj.result || '') as string;
+                    }
+                  } catch (fallbackError) {
+                    console.warn(`${key}.${method} failed:`, fallbackError);
+                  }
+                }
+              }
+            }
+          }
+
+          throw new Error(`xBull wallet signing failed. Available xBull APIs: ${xBullKeys.join(', ')}. No working signing method found.`);
         }
       }
 
