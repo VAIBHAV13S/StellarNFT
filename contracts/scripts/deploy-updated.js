@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
-import { readFileSync } from 'fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { randomBytes } from 'crypto';
 import pkg from '@stellar/stellar-sdk';
-const { Keypair, rpc, TransactionBuilder, Networks, BASE_FEE, xdr, Soroban, Operation } = pkg;
+const { Keypair, rpc, TransactionBuilder, Networks, BASE_FEE, xdr, Operation } = pkg;
 const { Server } = rpc;
 
 const __filename = fileURLToPath(import.meta.url);
@@ -38,17 +38,23 @@ async function deployContract(wasmPath, contractName) {
 
     // Upload WASM
     console.log('📤 Uploading WASM to network...');
+    
+    // Prepare the transaction first to get accurate fee estimation
     const uploadTx = new TransactionBuilder(sourceAccount, {
-      fee: (parseInt(BASE_FEE) * 1000).toString(), // Higher fee for Soroban
+      fee: '100000', // Use higher fee for WASM upload
       networkPassphrase: CONFIG.networkPassphrase,
     })
-      .addOperation(Soroban.uploadWasm({ wasm }))
+      .addOperation(Operation.uploadContractWasm({ wasm }))
       .setTimeout(120)
       .build();
 
-    uploadTx.sign(keypair);
+    // Prepare the transaction to get proper fee and resource estimation
+    console.log('🔧 Preparing transaction for Soroban...');
+    const preparedTx = await server.prepareTransaction(uploadTx);
+    
+    preparedTx.sign(keypair);
     console.log('📝 Sending upload transaction...');
-    const uploadResponse = await server.sendTransaction(uploadTx);
+    const uploadResponse = await server.sendTransaction(preparedTx);
 
     if (uploadResponse.errorResult) {
       throw new Error(`WASM upload failed: ${JSON.stringify(uploadResponse.errorResult)}`);
@@ -84,10 +90,10 @@ async function deployContract(wasmPath, contractName) {
     console.log('🏗️ Creating contract instance...');
     const salt = randomBytes(32);
     const createTx = new TransactionBuilder(await server.getAccount(keypair.publicKey()), {
-      fee: (parseInt(BASE_FEE) * 1000).toString(), // Higher fee for Soroban
+      fee: '100000', // Use higher fee for contract creation
       networkPassphrase: CONFIG.networkPassphrase,
     })
-      .addOperation(Soroban.createContract({
+      .addOperation(Operation.createContract({
         wasmHash: wasmHash,
         salt: salt,
         source: keypair.publicKey()
@@ -95,9 +101,13 @@ async function deployContract(wasmPath, contractName) {
       .setTimeout(120)
       .build();
 
-    createTx.sign(keypair);
+    // Prepare the transaction to get proper fee and resource estimation
+    console.log('🔧 Preparing create contract transaction...');
+    const preparedCreateTx = await server.prepareTransaction(createTx);
+    
+    preparedCreateTx.sign(keypair);
     console.log('📝 Sending create contract transaction...');
-    const createResponse = await server.sendTransaction(createTx);
+    const createResponse = await server.sendTransaction(preparedCreateTx);
 
     if (createResponse.errorResult) {
       throw new Error(`Contract creation failed: ${JSON.stringify(createResponse.errorResult)}`);
@@ -142,12 +152,11 @@ async function main() {
 
     // Check WASM files
     console.log('📦 Checking WASM files...');
-    const fs = await import('fs');
 
-    if (!fs.existsSync(CONFIG.nftWasmPath)) {
+    if (!existsSync(CONFIG.nftWasmPath)) {
       throw new Error(`NFT WASM file not found: ${CONFIG.nftWasmPath}`);
     }
-    if (!fs.existsSync(CONFIG.auctionWasmPath)) {
+    if (!existsSync(CONFIG.auctionWasmPath)) {
       throw new Error(`Auction WASM file not found: ${CONFIG.auctionWasmPath}`);
     }
 
@@ -177,8 +186,8 @@ async function main() {
     };
 
     const configPath = join(__dirname, '..', '..', 'src', 'contracts', 'deployed-contracts.json');
-    fs.mkdirSync(dirname(configPath), { recursive: true });
-    fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
+    mkdirSync(dirname(configPath), { recursive: true });
+    writeFileSync(configPath, JSON.stringify(config, null, 2));
 
     console.log('✅ Configuration saved');
 
